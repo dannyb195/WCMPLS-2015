@@ -31,37 +31,54 @@ class WCMPLS_Menu {
 	}
 
 	public static function getting_menu_items( $sub_menu_items ) {
-		echo '<pre>';
-		print_r($sub_menu_items);
-		echo '</pre>';
+
+		$post_ids = array();
 
 		foreach ( $sub_menu_items as $sub_item) {
+
 			if ( array_key_exists( 'post_type_post', $sub_item) ) {
-				echo 'we have posts';
+				foreach ( $sub_item['post_type_post'] as $id ) {
+					array_push( $post_ids, $id );
+				}
 			}
 
 			if ( array_key_exists( 'categories', $sub_item) ) {
-				echo 'we have categories';
+				$posts = get_posts( array(
+					'suppress_filters' => false,
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'category__in' => $sub_item['categories'],
+					'fields' => 'ids',
+				) );
+				foreach ( $posts as $id ) {
+					array_push( $post_ids, $id );
+				}
 			}
 
 			if ( array_key_exists( 'tags', $sub_item) ) {
-				echo 'we have post tags';
+				$posts = get_posts( array(
+					'suppress_filters' => false,
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'tag__in' => $sub_item['tags'],
+					'fields' => 'ids',
+				) );
+				foreach ( $posts as $id ) {
+					array_push( $post_ids, $id );
+				}
 			}
 
-		}
+		} // end foreach submenu items
 
-
-	}
+	} // end function
 
 	public static function nav_menu_output( $location ) {
+
 		$menu_items = self::nav_menu( $location );
 
 		if ( ! empty( $menu_items ) ) {
 			echo '<ul>';
 				foreach ( $menu_items as $item ) {
-					// echo '<pre>';
-					// print_r($item);
-					// echo '</pre>';
 					if ( empty( $item->sub_items ) ) {
 						// no children
 						echo '<li><a href="#">' . esc_html( $item->title ) . '</a></li>';
@@ -79,7 +96,8 @@ class WCMPLS_Menu {
 				}
 			echo '</ul>'; // ending menu container
 		}
-	}
+
+	} // end function
 
 } // END class
 

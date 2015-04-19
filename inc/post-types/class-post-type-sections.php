@@ -81,7 +81,8 @@ class WCMPLS2015_Post_Type_Sections {
 					'datasource' => new Fieldmanager_Datasource_Term( array(
 						'taxonomy' => 'category',
 						'taxonomy_save_to_terms' => false
-					) )
+					) ),
+					'limit' => 0,
 				) ),
 				'tags' => new Fieldmanager_Autocomplete( array(
 					'display_if' => array(
@@ -92,7 +93,8 @@ class WCMPLS2015_Post_Type_Sections {
 					'datasource' => new Fieldmanager_Datasource_Term( array(
 						'taxonomy' => 'post_tag',
 						'taxonomy_save_to_terms' => false
-					) )
+					) ),
+					'limit' => 0,
 				) ),
 			), // end children
 		) );
