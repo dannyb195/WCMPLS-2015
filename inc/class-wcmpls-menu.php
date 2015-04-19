@@ -73,9 +73,6 @@ class WCMPLS_Menu {
 
 			} // end foreach submenu items
 		}
-		// echo '<pre>';
-		// print_r( array_unique( $post_ids) );
-		// echo '</pre>';
 		//trans end
 		return array_unique( $post_ids );
 
@@ -99,6 +96,11 @@ class WCMPLS_Menu {
 								$sub_menu_posts = self::getting_menu_items( $item->sub_items );
 								foreach ( $sub_menu_posts as $post_id ) {
 									echo '<li>';
+										if ( has_post_thumbnail( $post_id ) ) {
+											$thumb_id = get_post_thumbnail_id( $post_id );
+											$thumb = wp_get_attachment_image_src( $thumb_id );
+											echo '<a href="' . esc_url( get_permalink( $post_id ) ) . '"><img src="' . $thumb[0] . '" /></a>';
+										}
 										echo '<a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( get_the_title( $post_id ) ) . '</a>';
 									echo '</li>';
 								}

@@ -12,9 +12,7 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( defined( 'FM_VERSION' ) ) {
-
 	define( 'WCMPLS2015_BASE_DIR', dirname( __FILE__ ) );
-
 	require_once( WCMPLS2015_BASE_DIR . '/inc/post-types/class-post-type-sections.php' );
 	require_once( WCMPLS2015_BASE_DIR . '/inc/class-wcmpls-menu.php' );
 }
