@@ -4,7 +4,7 @@ body .main-navigation {
 }
 
 body .main-navigation ul li ul li {
-	background: #EFEFEF;
+	background: #efefef;
 }
 
 body .main-navigation ul li:hover > ul, .main-navigation ul li:focus > ul, .main-navigation .focus > ul {
@@ -26,7 +26,3 @@ span.menu-items-wrapper li a img {
 	width: 100%;
 	margin: 0 10px 0 0;
 }
-/*body span.menu-items-wrapper ul li ul li a {
-	float: left;
-	width: 65%;
-}*/
