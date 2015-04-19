@@ -110,7 +110,7 @@ class WCMPLS_Menu {
 											if ( has_post_thumbnail( $post_id ) ) :
 												$thumb_id = get_post_thumbnail_id( $post_id );
 												$thumb = wp_get_attachment_image_src( $thumb_id ); ?>
-												<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+												<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>" class="menu-img">
 													<img src="<?php echo esc_url( $thumb[0] ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" />
 												</a>
 											<?php endif; ?>

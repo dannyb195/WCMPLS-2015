@@ -3,7 +3,30 @@ body .main-navigation {
 	text-align: initial;
 }
 
+body .main-navigation ul li ul li {
+	background: #EFEFEF;
+}
+
 body .main-navigation ul li:hover > ul, .main-navigation ul li:focus > ul, .main-navigation .focus > ul {
 	width: 670px;
 	background: #ccc;
 }
+
+span.menu-items-wrapper {
+	display: inline-block;
+	float: left;
+	width: 33%;
+}
+span.menu-items-wrapper li a.menu-img {
+	float: left;
+	width: 30%;
+}
+span.menu-items-wrapper li a img {
+	float: left;
+	width: 100%;
+	margin: 0 10px 0 0;
+}
+/*body span.menu-items-wrapper ul li ul li a {
+	float: left;
+	width: 65%;
+}*/
