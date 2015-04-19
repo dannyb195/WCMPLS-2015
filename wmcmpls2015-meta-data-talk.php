@@ -15,4 +15,9 @@ if ( defined( 'FM_VERSION' ) ) {
 	define( 'WCMPLS2015_BASE_DIR', dirname( __FILE__ ) );
 	require_once( WCMPLS2015_BASE_DIR . '/inc/post-types/class-post-type-sections.php' );
 	require_once( WCMPLS2015_BASE_DIR . '/inc/class-wcmpls-menu.php' );
+
+	function wcmpls_2015_styles() {
+		wp_enqueue_style( 'wcmpls-menu-styles',  plugins_url( '/styles/menu-styles.css', __FILE__ ) );
+	}
+	add_action( 'wp_enqueue_scripts', 'wcmpls_2015_styles' );
 }

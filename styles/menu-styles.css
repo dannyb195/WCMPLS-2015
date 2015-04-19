@@ -1,0 +1,9 @@
+
+body .main-navigation {
+	text-align: initial;
+}
+
+body .main-navigation ul li:hover > ul, .main-navigation ul li:focus > ul, .main-navigation .focus > ul {
+	width: 670px;
+	background: #ccc;
+}

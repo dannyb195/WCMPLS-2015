@@ -32,7 +32,8 @@ class WCMPLS_Menu {
 
 	public static function getting_menu_items( $sub_menu_items ) {
 
-		//trans start
+		// trans start
+		// never leave the $_GET['dev'] check in on production
 		if ( ! empty( $_GET['dev'] ) || false === ( $post_ids = get_transient( 'menu_post_ids' ) ) ) {
 
 			$post_ids = array();
@@ -82,34 +83,50 @@ class WCMPLS_Menu {
 
 		$menu_items = self::nav_menu( $location );
 
-		if ( ! empty( $menu_items ) ) {
-			echo '<ul>';
-				foreach ( $menu_items as $item ) {
-					if ( empty( $item->sub_items ) ) {
-						// no children
-						echo '<li><a href="' . esc_url( get_permalink( $item->ID ) ) . '">' . esc_html( $item->title ) . '</a></li>';
-					} else {
-						// item with children
-						echo '<li>';
-							echo '<a href="' . esc_url( get_permalink( $item->ID ) ) . '">' . esc_html( $item->title ) . '</a>';
-							echo '<ul>';
-								$sub_menu_posts = self::getting_menu_items( $item->sub_items );
-								foreach ( $sub_menu_posts as $post_id ) {
-									echo '<li>';
-										if ( has_post_thumbnail( $post_id ) ) {
-											$thumb_id = get_post_thumbnail_id( $post_id );
-											$thumb = wp_get_attachment_image_src( $thumb_id );
-											echo '<a href="' . esc_url( get_permalink( $post_id ) ) . '"><img src="' . $thumb[0] . '" /></a>';
-										}
-										echo '<a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( get_the_title( $post_id ) ) . '</a>';
-									echo '</li>';
-								}
-							echo '</ul>';
-						echo '</li>';
-					}
-				}
-			echo '</ul>'; // ending menu container
-		}
+		if ( ! empty( $menu_items ) ) : ?>
+			<ul>
+				<?php foreach ( $menu_items as $item ) :
+					if ( empty( $item->sub_items ) ) : ?>
+						// no children - really just a fallback
+						<li>
+							<a href="<?php echo esc_url( get_permalink( $item->ID ) ); ?>">
+								<?php echo esc_html( $item->title ); ?>
+							</a>
+						</li>
+					<?php else : // item with children - primary output ?>
+						<li>
+							<a href="<?php echo esc_url( get_permalink( $item->ID ) ); ?>">
+								<?php echo esc_html( $item->title ); ?>
+							</a>
+							<ul>
+								<span class="menu-items-wrapper">
+									<?php
+									$sub_menu_posts = self::getting_menu_items( $item->sub_items );
+									$total_count = count( $sub_menu_posts );
+									$count = 1;
+									foreach ( $sub_menu_posts as $post_id ) : ?>
+										<li>
+											<?php
+											if ( has_post_thumbnail( $post_id ) ) :
+												$thumb_id = get_post_thumbnail_id( $post_id );
+												$thumb = wp_get_attachment_image_src( $thumb_id ); ?>
+												<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+													<img src="<?php echo esc_url( $thumb[0] ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" />
+												</a>
+											<?php endif; ?>
+											<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a>
+										</li>
+										<?php if ( $total_count-- >= 3 && $count++ %3 === 0 ) : ?>
+											</span><span class="menu-items-wrapper">
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</span>
+							</ul>
+						</li>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; // ending menu container
 
 	} // end function
 
