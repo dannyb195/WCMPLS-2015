@@ -70,7 +70,8 @@ class WCMPLS2015_Post_Type_Sections {
 					'add_more_label' => __( 'Add another post' ),
 					'datasource' => new Fieldmanager_Datasource_Post( array(
 						'query_args' => array( 'post_type' => 'post' )
-					) )
+					) ),
+					'sortable' => true,
 				) ),
 				'categories' => new Fieldmanager_Autocomplete( array(
 					'display_if' => array(
@@ -83,6 +84,7 @@ class WCMPLS2015_Post_Type_Sections {
 						'taxonomy_save_to_terms' => false
 					) ),
 					'limit' => 0,
+					'sortable' => true,
 				) ),
 				'tags' => new Fieldmanager_Autocomplete( array(
 					'display_if' => array(
@@ -95,6 +97,7 @@ class WCMPLS2015_Post_Type_Sections {
 						'taxonomy_save_to_terms' => false
 					) ),
 					'limit' => 0,
+					'sortable' => true,
 				) ),
 			), // end children
 		) );
