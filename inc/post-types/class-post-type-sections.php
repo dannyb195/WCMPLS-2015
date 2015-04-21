@@ -44,7 +44,7 @@ class WCMPLS2015_Post_Type_Sections {
 
 		$curation_origin = new Fieldmanager_Datasource( array(
 			'options' => array(
-				__( 'Manual Post Curation', 'text-domain' ) ,
+				__( 'Manual Post Curation', 'text-domain' ),
 				__( 'Categories', 'text-domain' ),
 				__( 'Post Tags', 'text-domain' ),
 			)

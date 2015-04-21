@@ -14,7 +14,6 @@ class WCMPLS_Menu {
 		// getting menu items by theme location
 		if ( ! empty( $menus[ $location ] ) ) {
 			return wp_get_nav_menu_items( $menus[ $location ] );
-
 		}
 
 	}
@@ -95,7 +94,7 @@ class WCMPLS_Menu {
 						</li>
 					<?php else : // item with children - primary output ?>
 						<li>
-							<a href="<?php echo esc_url( get_permalink( $item->ID ) ); ?>">
+							<a href="<?php echo esc_url( get_permalink( $item->object_id ) ); ?>">
 								<?php echo esc_html( $item->title ); ?>
 							</a>
 							<ul>
