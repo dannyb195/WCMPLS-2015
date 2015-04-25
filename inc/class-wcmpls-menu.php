@@ -11,6 +11,10 @@ class WCMPLS_Menu {
 
 		$menus = get_nav_menu_locations();
 
+		// echo '<pre>';
+		// print_r($menus);
+		// echo '</pre>';
+
 		// getting menu items by theme location
 		if ( ! empty( $menus[ $location ] ) ) {
 			return wp_get_nav_menu_items( $menus[ $location ] );
@@ -20,6 +24,11 @@ class WCMPLS_Menu {
 
 	public static function nav_menu( $location ) {
 		$menu_top_level = self::get_nav_menu( $location );
+
+		// echo '<pre>';
+		// print_r($menu_top_level);
+		// echo '</pre>';
+
 		if ( ! empty( $menu_top_level ) ) {
 			foreach ( $menu_top_level as $menu_item ) {
 				// setting each menu item's posts meta as a property of the menu object
@@ -72,9 +81,12 @@ class WCMPLS_Menu {
 				}
 
 			} // end foreach submenu items
+
+			// 5 min caching
+			set_transient( 'menu_post_ids', $post_ids, 300 );
 		}
 		//trans end
-		return array_unique( $post_ids );
+		return array_slice( array_unique( $post_ids ), 0, 9 );
 
 	} // end function
 
